@@ -1,17 +1,24 @@
 
 
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { asyncregisteruser } from "../store/actions/userAction";
+import { nanoid } from "@reduxjs/toolkit";
 
 
 
 function Signup() {
 
+    const dispatch = useDispatch();
+
     const { reset, handleSubmit, register } = useForm();
 
     const signupHandler = (user)=>{
+        user.id = nanoid();
         console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
+        dispatch(asyncregisteruser(user))
         
         reset();
     }
