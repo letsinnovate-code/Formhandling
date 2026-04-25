@@ -2,7 +2,7 @@
 
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { asyncregisteruser } from "../store/actions/userAction";
 import { nanoid } from "@reduxjs/toolkit";
 
@@ -11,17 +11,28 @@ import { nanoid } from "@reduxjs/toolkit";
 function Signup() {
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { reset, handleSubmit, register } = useForm();
 
-    const signupHandler = (user)=>{
-        user.id = nanoid();
-        console.log(user);
-        localStorage.setItem("user", JSON.stringify(user));
-        dispatch(asyncregisteruser(user))
-        
-        reset();
-    }
+    const signupHandler = (user) => {
+    user.id = nanoid();
+
+    dispatch(asyncregisteruser(user));
+
+    // get previous users
+    const existingUsers =
+        JSON.parse(localStorage.getItem("users")) || [];
+
+    // add new user
+    existingUsers.push(user);
+
+    // save updated array
+    localStorage.setItem("users", JSON.stringify(existingUsers));
+
+    navigate("/login");
+    reset();
+};
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="w-full max-w-md bg-white shadow-lg rounded-xl p-8">
@@ -41,6 +52,7 @@ function Signup() {
             </label>
             <input
               {...register("fullname")}
+              required
               type="text"
               placeholder="Enter your full name"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
@@ -90,7 +102,7 @@ function Signup() {
           {/* Signup Button */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
+            className="w-full cursor-pointer bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition duration-300"
           >
             Sign Up
           </button>
