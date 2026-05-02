@@ -20,15 +20,15 @@ function Signup() {
 
     dispatch(asyncregisteruser(user));
 
-    // get previous users
-    const existingUsers =
-        JSON.parse(localStorage.getItem("users")) || [];
+    // // get previous users
+    // const existingUsers =
+    //     JSON.parse(localStorage.getItem("users")) || [];
 
-    // add new user
-    existingUsers.push(user);
+    // // add new user
+    // existingUsers.push(user);
 
-    // save updated array
-    localStorage.setItem("users", JSON.stringify(existingUsers));
+    // // save updated array
+    // localStorage.setItem("users", JSON.stringify(existingUsers));
 
     navigate("/login");
     reset();
@@ -48,13 +48,13 @@ function Signup() {
           {/* Full Name */}
           <div>
             <label className="block text-gray-700 font-medium mb-2">
-              Full Name
+              User name
             </label>
             <input
-              {...register("fullname")}
+              {...register("username", { required: true })}
               required
               type="text"
-              placeholder="Enter your full name"
+              placeholder="Enter your user name"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
