@@ -3,8 +3,11 @@
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
-import { asyncregisteruser } from "../store/actions/userAction";
+
 import { nanoid } from "@reduxjs/toolkit";
+import { asyncregisteruser } from "../store/actions/userActions";
+
+
 
 
 
@@ -48,6 +51,19 @@ function Signup() {
           {/* Full Name */}
           <div>
             <label className="block text-gray-700 font-medium mb-2">
+              Full Name
+            </label>
+            <input
+              {...register("name", { required: true })}
+              required
+              type="text"
+              placeholder="Enter your full name"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">
               User name
             </label>
             <input
@@ -55,6 +71,17 @@ function Signup() {
               required
               type="text"
               placeholder="Enter your user name"
+              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
+          <div>
+            <label className="block text-gray-700 font-medium mb-2">
+              Age
+            </label>
+            <input
+                {...register("age")}
+              type="number"
+              placeholder="Enter your age"
               className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
@@ -87,17 +114,7 @@ function Signup() {
           </div>
 
           {/* Confirm Password */}
-          <div>
-            <label className="block text-gray-700 font-medium mb-2">
-              Confirm Password
-            </label>
-            <input
-              {...register("confirmPassword")}
-              type="password"
-              placeholder="Confirm password"
-              className="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+          
 
           {/* Signup Button */}
           <button

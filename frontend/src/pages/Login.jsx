@@ -1,16 +1,22 @@
 
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { asyncloginuser } from "../store/actions/userAction";
+
+import { useNavigate } from "react-router-dom";
+import { asyncloginuser } from "../store/actions/userActions";
 
 
 const Login = () => {
     const { reset, handleSubmit, register } = useForm();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+    
 
     const loginHandler = (user) => {
         dispatch(asyncloginuser(user));
         reset();
+        navigate("/");
+
     }
 
     return (
